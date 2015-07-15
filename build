@@ -15,7 +15,7 @@ curl -o etcd-v2.0.13-linux-amd64.tar.gz -L https://github.com/coreos/etcd/releas
 tar -xvf etcd-v2.0.13-linux-amd64.tar.gz
 cp etcd-v2.0.13-linux-amd64/etcd etcd-v2.0.13-linux-amd64/etcdctl etcd/
 pushd etcd
-docker build -t etcd:2.0.13 .
+docker build -t kuar.io/etcd:2.0.13 .
 rm -rf etcd-v2.0.13-linux-amd64*
 rm etcd/etcd etcd/etcdctl
 popd
@@ -24,7 +24,7 @@ for b in kube-apiserver kube-proxy kube-scheduler kube-controller-manager kubele
   curl -o ${b}/${b} -L ${KUBERNETES_RELEASE_URL}/${b}
   chmod +x ${b}/${b}
   pushd ${b}/
-  docker build -t ${b}:${KUBERNETES_VERSION} .
+  docker build -t kuar.io/${b}:${KUBERNETES_VERSION} .
   rm ${b}
   popd
 done
