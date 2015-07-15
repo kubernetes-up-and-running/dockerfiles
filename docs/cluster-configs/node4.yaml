@@ -1,0 +1,56 @@
+#cloud-config
+
+coreos:
+  units:
+    - name: etcd.service
+      mask: true
+    - name: fleet.service
+      mask: true
+    - name: docker.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Docker Application Container Engine
+        Documentation=http://docs.docker.io
+
+        [Service]
+        ExecStart=/usr/bin/docker --daemon \
+        --bip=10.200.4.1/24 \
+        --host=tcp://0.0.0.0:2376 \
+        --host=unix:///var/run/docker.sock \
+        --tlsverify \
+        --tlscacert=/etc/docker/ssl/ca.pem \
+        --tlscert=/etc/docker/ssl/server.pem \
+        --tlskey=/etc/docker/ssl/server-key.pem \
+        --storage-driver=overlay
+        Restart=on-failure
+        RestartSec=5
+
+        [Install]
+        WantedBy=multi-user.target
+  update:
+    group: alpha
+    reboot-strategy: off
+write_files:
+  - path: /etc/docker/ssl/server-key.pem
+    permissions: 0400
+    owner: root
+    content: |
+      -----BEGIN RSA PRIVATE KEY-----
+      REDACTED
+      -----END RSA PRIVATE KEY-----
+  - path: /etc/docker/ssl/server.pem
+    permissions: 0444
+    owner: root
+    content: |
+      -----BEGIN CERTIFICATE-----
+      REDACTED
+      -----END CERTIFICATE-----
+  - path: /etc/docker/ssl/ca.pem
+    permissions: 0444
+    owner: root
+    content: |
+      -----BEGIN CERTIFICATE-----
+      REDACTED
+      -----END CERTIFICATE-----

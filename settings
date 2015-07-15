@@ -1,0 +1,2 @@
+KUBERNETES_VERSION="1.0.0"
+KUBERNETES_RELEASE_URL="https://storage.googleapis.com/kelseyhightower/musl/kubernetes/release/v${KUBERNETES_VERSION}/bin/linux/amd64"

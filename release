@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+if [ ! -f settings ]; then
+  echo "Error loading configuration; settings file missing."
+  exit 1
+fi
+
+source ./settings
+
+for b in kube-apiserver kube-proxy kube-scheduler kube-controller-manager kubelet kubectl; do
+  docker tag -f ${b}:${KUBERNETES_VERSION} kuar.io/${b}:${KUBERNETES_VERSION}
+  docker push kuar.io/${b}:${KUBERNETES_VERSION}
+done
