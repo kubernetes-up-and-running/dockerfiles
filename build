@@ -11,12 +11,13 @@ fi
 
 source ./settings
 
-curl -o etcd-v2.0.13-linux-amd64.tar.gz https://github.com/coreos/etcd/releases/download/v2.0.13/etcd-v2.0.13-linux-amd64.tar.gz
+curl -o etcd-v2.0.13-linux-amd64.tar.gz -L https://github.com/coreos/etcd/releases/download/v2.0.13/etcd-v2.0.13-linux-amd64.tar.gz
 tar -xvf etcd-v2.0.13-linux-amd64.tar.gz
 cp etcd-v2.0.13-linux-amd64/etcd etcd-v2.0.13-linux-amd64/etcdctl etcd/
 pushd etcd
 docker build -t etcd:2.0.13 .
-rm -rf  etcd-v2.0.13-linux-amd64*
+rm -rf etcd-v2.0.13-linux-amd64*
+rm etcd/etcd etcd/etcdctl
 popd
 
 for b in kube-apiserver kube-proxy kube-scheduler kube-controller-manager kubelet kubectl; do
