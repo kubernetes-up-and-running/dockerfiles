@@ -11,6 +11,9 @@ fi
 
 source ./settings
 
+docker tag -f etcd:2.0.13 kuar.io/etcd:2.0.13
+docker push kuar.io/etcd:2.0.13
+
 for b in kube-apiserver kube-proxy kube-scheduler kube-controller-manager kubelet kubectl; do
   docker tag -f ${b}:${KUBERNETES_VERSION} kuar.io/${b}:${KUBERNETES_VERSION}
   docker push kuar.io/${b}:${KUBERNETES_VERSION}
