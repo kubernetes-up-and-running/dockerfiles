@@ -9,28 +9,28 @@ download: fetch-etcd-release fetch-kubernetes-release
 
 fetch-kubernetes-release:
 	curl -o kubernetes.tar.gz \
-	-L https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v1.0.3/kubernetes.tar.gz
+	-L https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v1.0.4/kubernetes.tar.gz
 	tar -xvzf kubernetes.tar.gz kubernetes/server/kubernetes-server-linux-amd64.tar.gz
 	tar -xvzf kubernetes/server/kubernetes-server-linux-amd64.tar.gz
 
 fetch-etcd-release:
-	curl -o etcd-v2.1.1-linux-amd64.tar.gz \
-	-L https://github.com/coreos/etcd/releases/download/v2.1.1/etcd-v2.1.1-linux-amd64.tar.gz
-	tar -xvf etcd-v2.1.1-linux-amd64.tar.gz
+	curl -o etcd-v2.1.3-linux-amd64.tar.gz \
+	-L https://github.com/coreos/etcd/releases/download/v2.1.3/etcd-v2.1.3-linux-amd64.tar.gz
+	tar -xvf etcd-v2.1.3-linux-amd64.tar.gz
 
 docker:
-	docker build -t b.gcr.io/kuar/etcd:2.1.1 etcd/
-	docker build -t b.gcr.io/kuar/kube-apiserver:1.0.3 kube-apiserver/
-	docker build -t b.gcr.io/kuar/kube-controller-manager:1.0.3 kube-controller-manager/
-	docker build -t b.gcr.io/kuar/kube-proxy:1.0.3 kube-proxy/
-	docker build -t b.gcr.io/kuar/kube-scheduler:1.0.3 kube-scheduler/
+	docker build -t b.gcr.io/kuar/etcd:2.1.3 etcd/
+	docker build -t b.gcr.io/kuar/kube-apiserver:1.0.4 kube-apiserver/
+	docker build -t b.gcr.io/kuar/kube-controller-manager:1.0.4 kube-controller-manager/
+	docker build -t b.gcr.io/kuar/kube-proxy:1.0.4 kube-proxy/
+	docker build -t b.gcr.io/kuar/kube-scheduler:1.0.4 kube-scheduler/
 
 docker-push:
-	gcloud docker push b.gcr.io/kuar/etcd:2.1.1
-	gcloud docker push b.gcr.io/kuar/kube-apiserver:1.0.3
-	gcloud docker push b.gcr.io/kuar/kube-controller-manager:1.0.3
-	gcloud docker push b.gcr.io/kuar/kube-proxy:1.0.3
-	gcloud docker push b.gcr.io/kuar/kube-scheduler:1.0.3
+	gcloud docker push b.gcr.io/kuar/etcd:2.1.3
+	gcloud docker push b.gcr.io/kuar/kube-apiserver:1.0.4
+	gcloud docker push b.gcr.io/kuar/kube-controller-manager:1.0.4
+	gcloud docker push b.gcr.io/kuar/kube-proxy:1.0.4
+	gcloud docker push b.gcr.io/kuar/kube-scheduler:1.0.4
 
 .PHONY: kubernetes
 kubernetes:
@@ -45,8 +45,8 @@ kubernetes:
 
 .PHONY: etcd
 etcd:
-	cp etcd-v2.1.1-linux-amd64/etcd etcd/etcd
-	cp etcd-v2.1.1-linux-amd64/etcdctl etcd/etcdctl
+	cp etcd-v2.1.3-linux-amd64/etcd etcd/etcd
+	cp etcd-v2.1.3-linux-amd64/etcdctl etcd/etcdctl
 	chmod 755 etcd/etcd
 	chmod 755 etcd/etcdctl
 

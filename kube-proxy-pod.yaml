@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: kube-proxy
-  version: 1.0.3
+  version: 1.0.4
 spec:
   hostNetwork: true
   volumes:
@@ -20,7 +20,7 @@ spec:
         path: "/lib64"
   containers:
     - name: "kube-proxy"
-      image: "b.gcr.io/kuar/kube-proxy:1.0.3"
+      image: "b.gcr.io/kuar/kube-proxy:1.0.4"
       args:
         - "--master=http://127.0.0.1:8080"
         - "--v=2"
