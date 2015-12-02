@@ -22,7 +22,7 @@ spec:
         path: "/var/lib/etcd"
   containers: 
     - name: "etcd"
-      image: "b.gcr.io/kuar/etcd:2.2.0"
+      image: "b.gcr.io/kuar/etcd:2.2.2"
       args: 
         - "--data-dir=/var/lib/etcd"
         - "--advertise-client-urls=http://127.0.0.1:2379"
@@ -33,7 +33,7 @@ spec:
         - mountPath: /var/lib/etcd
           name: "etcd-datadir"
     - name: "kube-apiserver"
-      image: "b.gcr.io/kuar/kube-apiserver:1.0.6"
+      image: "b.gcr.io/kuar/kube-apiserver:1.1.2"
       args: 
         - "--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
         - "--allow-privileged=true"
@@ -50,7 +50,7 @@ spec:
         - mountPath: /var/lib/kubernetes
           name: "var-lib-kubernetes"
     - name: "kube-controller-manager"
-      image: "b.gcr.io/kuar/kube-controller-manager:1.0.6"
+      image: "b.gcr.io/kuar/kube-controller-manager:1.1.2"
       args:
         - "--master=http://127.0.0.1:8080"
         - "--v=2"
@@ -60,7 +60,7 @@ spec:
         - mountPath: /var/lib/kubernetes
           name: "var-lib-kubernetes"
     - name: "kube-scheduler"
-      image: "b.gcr.io/kuar/kube-scheduler:1.0.6"
+      image: "b.gcr.io/kuar/kube-scheduler:1.1.2"
       args:
         - "--master=http://127.0.0.1:8080"
         - "--v=2"
